@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cek Plagiarisme</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: black;
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: left;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+        h1 {
+            font-size: 36px;
+            margin: 10px 0;
+        }
+        h2 {
+            font-size: 16px;
+            color: gray;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="{% url 'index' %}" style="color: white; text-decoration: none;">CEK PLAGIARISME</a>
+</header>
+
+<div class="content">
+    <h1>LOGIN</h1>
+    <form method="POST" action="{% url 'login_view' %}">
+        {% csrf_token %}
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="Enter Username">
+        
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Enter Password">
+        
+        <button type="submit">Login</button>
+    </form>
+    
+</div>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Referensi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        header {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="file"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #333;
+        }
+        .alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+    .alert.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .alert.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="{% url 'index' %}" style="color: white; text-decoration: none;">CEK PLAGIARISME</a>
+</header>
+
+<div class="content">
+    <!-- {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %} -->
+    <h1>Tambah Teks Referensi</h1>
+    <form action="{% url 'add_reference' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="title">Judul:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="authors">Penulis:</label>
+        <input type="text" id="authors" name="authors" required>
+
+        <label for="pdf">Upload PDF:</label>
+        <input type="file" id="pdf" name="pdf" accept=".pdf" required>
+
+        <button type="submit">Simpan Referensi</button>
+    </form>
+</div>
+
+</body>
+</html>

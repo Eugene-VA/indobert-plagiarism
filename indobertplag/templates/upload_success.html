@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: black;
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: left;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+        }
+        th {
+            background-color: black;
+            color: white;
+        }
+        tr:nth-child(even){
+            background-color: #f2f2f2;
+        }
+        .upload-success {
+            margin-bottom: 20px;
+        }
+        .table-container {
+            width: auto; /* Adjust width to the table content */
+            max-width: 90%; /* Ensures it doesn't exceed the viewport */
+            overflow-x: auto; /* Horizontal scroll only if needed */
+            margin: 0 auto; /* Center the table container */
+            padding: 0; /* Remove padding to prevent extra space */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="{% url 'login_view' %}" style="color: white; text-decoration: none;">REFERENSI</a>
+</header>    
+
+<div class="content">
+    <h1>HASIL CEK PLAGIARISME</h1>
+    <div class="upload-success">
+        <p> <a href="{{ uploaded_file_url }}" target="_blank">{{ filename }}</a></p>
+        <p> Kemiripan: {{ weighted_score }}</p>
+    </div>
+    <div class="table-container">
+        {% if similarities %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Judul</th>
+                        <th>Penulis</th>
+                        <th>Kemiripan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for similarity in similarities %}
+                        <tr>
+                            <td>{{ similarity.reference }}</td>
+                            <td>{{ similarity.author }}</td>
+                            <td>{{ similarity.similarity }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>    
+    <br>
+    <a  href="{% url 'delete_file_and_redirect' filename %}" style="margin-top: 20px;">Upload PDF Lain</a>
+</div>
+
+</body>
+</html>
