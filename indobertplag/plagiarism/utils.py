@@ -31,11 +31,12 @@ def clean_text(text):
         r"(januari|februari|maret|april|mei|juni|juli|agustus|september|oktober|november|desember) \d{4}",
         re.IGNORECASE
     )
-    final_pattern = re.compile(r"[^a-zA-Z0-9.,!?\s]+", re.IGNORECASE)
+    final_pattern = re.compile(r"[^a-zA-Z0-9.,!?[\]\s]+", re.IGNORECASE)
     text = re.sub(journal_pattern, "", text)  # Remove journal mentions
     text = re.sub(final_pattern, "", text)  # Remove special characters
     text = re.sub(key_pattern, '', text)  # Remove keywords
-    text = re.sub(r'\[\d+\]', '', text)  # Remove [1] [2]
+    # text = re.sub(r'\[\d+\]', '', text)  # Remove [1] [2]
+        # Commented. Skip if citation 
     text = re.sub(r'\.+', '.', text)  # Replace multiple periods with single period
     text = re.sub(r'\s+', ' ', text)  # Replace multiple spaces with single space
     text = re.sub(r'\n\s*\n', '\n', text)  # Remove empty lines
@@ -98,8 +99,8 @@ def chunk_text(text, max_tokens=100, min_tokens=3):
     # Add space after periods if missing
     text = re.sub(r'\.(?=[a-zA-Z])', '. ', text)
     
-    # Split sentences. Period, exclamation, question mark followed by space
-    sentence_pattern = re.compile(r'(?<=[.!?])\s+')
+    # Split sentences
+    sentence_pattern = re.compile(r'(?<=[.!?])\s+(?=[^0-9])')
     sentences = [s.strip() for s in sentence_pattern.split(text) if s.strip()]
     
     chunks = []

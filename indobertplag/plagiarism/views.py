@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
@@ -100,6 +101,10 @@ def upload_pdf(request):
         return redirect('index')
 
 def process_embedding(input_embedding, reference_embeddings, reference_sentences, input_sentence):
+    # Check if the input sentence contains a citation
+    if re.search(r'\[\s*\d+\s*\]', input_sentence):
+        return 0, None, input_sentence  # Count citation chunks as non-plagiarized
+
     max_similarity = 0
     max_reference = None
 
@@ -107,15 +112,8 @@ def process_embedding(input_embedding, reference_embeddings, reference_sentences
         # Pad the input and reference embeddings once
         input_embedding_padded, ref_embeddings_padded = pad_embeddings(input_embedding, ref_embeddings_array)
 
-        # Print the shapes after padding
-        # print("Shape of input_embedding_padded:", input_embedding_padded.shape)
-        # print("Shape of ref_embeddings_padded:", ref_embeddings_padded.shape)
-
         # Compute cosine similarity in a vectorized way
         similarity_scores = cosine_similarity(input_embedding_padded.reshape(1, -1), ref_embeddings_padded).flatten()
-        # print("Shape of reshaped input embedding:", input_embedding_padded.reshape(1, -1).shape)
-        # # Print the shape of similarity_scores
-        # print("Shape of similarity_scores:", similarity_scores.shape)
 
         # Find max similarity and track highest similarity reference
         max_sim_score = np.max(similarity_scores)

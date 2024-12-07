@@ -1,3 +1,4 @@
+import re
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -57,6 +58,7 @@ def add_reference(request):
             filename = fs.save(pdf.name, pdf)
             pdf_path = fs.path(filename)
             content = extract_text_from_pdf(pdf_path)
+            content = re.sub(r'\[\d+\]', '', content)  # Remove [1] [2]
             embeddings = compute_embedding(content)
             embeddings_list = [embedding.tolist() for embedding in embeddings]
 
