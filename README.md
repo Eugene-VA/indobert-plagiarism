@@ -1,5 +1,4 @@
-# Manual Book  
-## Indobertplag  
+# Indobertplag  
 **Aplikasi Cek Plagiarisme Karya Ilmiah Berbasis Web**  
 Indobertplag adalah sebuah aplikasi cek plagiarisme berbasis web yang khusus digunakan untuk karya ilmiah. Aplikasi ini mengeluarkan tingkat kemiripan antara teks input dengan teks-teks yang terdaftar pada database. Dari nilai kemiripan tersebut, sebuah teks dapat diklasifikasi sebagai:  
 - **Non Plagiat** (0 - 9.9%)  
