@@ -36,7 +36,7 @@ Sebelum memulai instalasi, pastikan telah mengunduh:
      pip install -r requirements.txt  
      ```  
 
-   Command diatas akan menginsall library yang terdaftar di `requirements.txt`.  
+   Command diatas akan menginstall library yang terdaftar di `requirements.txt`.  
 
 2. **Model dan Cosine Similarity**  
    - Model **IndoBERT** (all-indobert-base-v4) diunduh otomatis oleh HuggingFace.  
